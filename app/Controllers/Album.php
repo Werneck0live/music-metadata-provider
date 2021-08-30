@@ -12,6 +12,7 @@ class Album extends BaseController
 	*/
 	public function search($value)
 	{
+
 		// Do search
 		$albummodel = new Albummodel();
 		$result = $albummodel->search((string) $value);

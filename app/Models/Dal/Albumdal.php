@@ -29,7 +29,13 @@ class Albumdal {
 
 			$albumsParsed[] = $albummodel;
 
-			break;
+			/*
+				TODO: WERNECK
+			  Por causa do break, está sendo pausado o fluxo 
+			  do foreach e por isso está passando somente um resultado
+			*/
+
+			// break;
 		}
 
 		return $albumsParsed;
