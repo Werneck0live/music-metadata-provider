@@ -44,9 +44,29 @@ class Lastfm
 			!$responseArray->results ||
 			!$responseArray->results->albummatches || 
 			!$responseArray->results->albummatches->album)
-			return $albumsParsed;
+			return $responseParsed;
 
 		$responseParsed = $responseArray->results->albummatches->album;
+
+		return $responseParsed;
+	}	
+
+	public function getDetails($value) {
+		// $url = $this->getBaseUrl() . "method=album.search&album=$value&limit=1";
+		$url = $this->getBaseUrl() . "method=artist.gettopalbums&artist=$value";
+		$client = \Config\Services::curlrequest();
+		
+		$response = $client->request('GET', $url);
+		$responseArray = json_decode($response->getBody());		
+
+
+		$responseParsed = [];
+
+		if (!$responseArray || 
+			!$responseArray->topalbums )
+			return $responseParsed;
+
+		$responseParsed = $responseArray->topalbums;
 
 		return $responseParsed;
 	}	
