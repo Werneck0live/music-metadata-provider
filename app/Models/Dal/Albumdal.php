@@ -25,7 +25,7 @@ class Albumdal {
 			$albummodel->setName($album->name);
 			$albummodel->setArtist($album->artist);
 			$albummodel->setUrl($album->url);
-			//$albummodel->setCover($album->image);
+			$albummodel->setCover($album->image);
 
 			$albumsParsed[] = $albummodel;
 
