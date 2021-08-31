@@ -11,29 +11,31 @@ class Artistdal {
 		
 		$lastfm = new Lastfm();
 		
-		$artistsReturned = $lastfm->getDetails($value);
+		$artistsReturned = $lastfm->getArtistDetails($value);
 		
 		$artistsParsed = [];
 
 		if (!$artistsReturned)
 			return $artistsParsed;
+		
+		unset($artistmodel);
 
-			
-		foreach($artistsReturned as $artist) {
-			
-			foreach($artist as $projectArtist) {
-				
-				unset($artistmodel);
-				
-				$artistmodel = new Artistmodel();
-				$artistmodel->setName($projectArtist->name);
-				$artistmodel->setUrl($projectArtist->url);
-				
-				$artistsParsed[] = $artistmodel;
-			}
-		}
+		$artistmodel = new Artistmodel();
+		$artistmodel->setName($artistsReturned->name);
+		$artistmodel->setUrl($artistsReturned->url);
+		$artistmodel->setImage($this->returnImageSite($artistsReturned->image));
+		$artistmodel->setTags($artistsReturned->tags);
+		
+		$artistsParsed[] = $artistmodel;
 		
 		return $artistsParsed;
 	}
 
+	public function returnImageSite(array $arrayImage, $size = 'small'){
+		foreach ($arrayImage as $value) {
+			if($value->size==$size){
+				return $value->{'#text'};
+			}
+		}
+	}
 }

@@ -25,7 +25,7 @@ class Lastfm
 	// TODO: Customize method to search for multiple words
 	public function searchAlbum($value) {
 		/*
-			TODO: WERNECK
+			TODO: WERNECK - Questão 2
 			Por causa do limit 1, está sendo limitado 1 resultado somente. 
 			O ideal, é criar uma constante, recebendo a configuração de um limite
 			padrão ou algo semelhante a regra de negócio do projeto.
@@ -51,23 +51,40 @@ class Lastfm
 		return $responseParsed;
 	}	
 
-	public function getDetails($value) {
-		// $url = $this->getBaseUrl() . "method=album.search&album=$value&limit=1";
-		$url = $this->getBaseUrl() . "method=artist.gettopalbums&artist=$value";
+	public function getArtistDetails($value) {
+		$url = $this->getBaseUrl() . "method=artist.getinfo&artist=$value";
 		$client = \Config\Services::curlrequest();
 		
 		$response = $client->request('GET', $url);
 		$responseArray = json_decode($response->getBody());		
-
-
 		$responseParsed = [];
 
 		if (!$responseArray || 
-			!$responseArray->topalbums )
+			!$responseArray->artist )
 			return $responseParsed;
 
-		$responseParsed = $responseArray->topalbums;
+		$responseParsed = $responseArray->artist;
 
 		return $responseParsed;
-	}	
+	}
+	
+	public function getTopAlbuns($value, $limit='') {
+		$limit = ($limit!='') ? 'limit='.$limit : '';
+		$url = $this->getBaseUrl() . "method=artist.gettopalbums&artist=$value&$limit";
+
+		$client = \Config\Services::curlrequest();
+
+		$response = $client->request('GET', $url);
+		$responseArray = json_decode($response->getBody());
+		$responseParsed = [];
+
+		if (!$responseArray || 
+			!$responseArray->topalbums ||
+			!$responseArray->topalbums->album )
+			return $responseParsed;
+
+		$responseParsed = $responseArray->topalbums->album;
+
+		return $responseParsed;
+	}
 }

@@ -8,29 +8,39 @@ class Artistmodel {
 	
 	private $name;
 	private $url;
+	private $image;
+	private $tags;
+	public $top_albuns;
+
 	
 	public function setName($name) {
 		$this->name = $name;
 	}
-
 	
 	public function setUrl($url) {
 		$this->url = $url;
 	}
-
+	
+	public function setImage($image) {
+		$this->image = $image;
+	}
+	public function setTags($tags) {
+		$this->tags = $tags;
+	}
 	
 	public function toArray() {
 		return [
-			'name'		=> $this->name,
-			'url' 		=> $this->url,
+			'name'			=> $this->name,
+			'url' 			=> $this->url,
+			'image'			=> $this->image,
+			'tags'			=> $this->tags,
+			'top_albuns'	=> $this->top_albuns,
 		];
 	}
 
-	// Return an array of Artists or a empty array
 	public function search($value) {
-		// Access data access layer
+		
 		$artistdal = new Artistdal();
-		// var_dump($artistdal->search($value));die();
 		return $artistdal->search($value);
 	}
 }

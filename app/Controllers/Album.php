@@ -54,4 +54,10 @@ class Album extends BaseController
 			'result' 	=> $parsedResult
 		]);
 	}
+
+	public function searchTopAlbuns($value)
+	{
+		$albummodel = new Albummodel();
+		$result = $albummodel->searchTopAlbuns((string) $value);
+	}
 }
