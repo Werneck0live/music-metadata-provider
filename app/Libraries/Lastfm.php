@@ -69,11 +69,11 @@ class Lastfm
 	}
 	
 	public function getTopAlbuns($value, $limit='') {
+		
 		$limit = ($limit!='') ? 'limit='.$limit : '';
-		$url = $this->getBaseUrl() . "method=artist.gettopalbums&artist=$value&$limit";
-
+		$url = $this->getBaseUrl() . "method=artist.gettopalbums&artist=".urlencode($value)."&$limit";
 		$client = \Config\Services::curlrequest();
-
+		
 		$response = $client->request('GET', $url);
 		$responseArray = json_decode($response->getBody());
 		$responseParsed = [];
@@ -84,6 +84,28 @@ class Lastfm
 			return $responseParsed;
 
 		$responseParsed = $responseArray->topalbums->album;
+
+		return $responseParsed;
+	}
+
+	public function getTopArtists($limit=''){
+		$limit = ($limit!='') ? 'limit='.$limit : '';
+		$url = $this->getBaseUrl() . "method=chart.gettopartists&$limit";
+		
+
+		$client = \Config\Services::curlrequest();
+
+		$response = $client->request('GET', $url);
+		$responseArray = json_decode($response->getBody());
+
+		$responseParsed = [];
+
+		if (!$responseArray || 
+			!$responseArray->artists ||
+			!$responseArray->artists->artist )
+			return $responseParsed;
+
+		$responseParsed = $responseArray->artists->artist;
 
 		return $responseParsed;
 	}

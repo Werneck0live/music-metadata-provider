@@ -15,15 +15,10 @@ class Artist extends BaseController
 		$artistmodel = new Artistmodel();
 		$result = $artistmodel->search((string) $value);
 		
-		
 		$parsedResult = [];
-		
-		$albummodel = new Albummodel();
-		// $result = $albummodel->searchTopAlbuns((string) $value);
 		
 		if ($result && count($result) > 0) {			
 			foreach ($result as $artistmodel) {;
-				$artistmodel->top_albuns=$albummodel->searchTopAlbuns($value);
 				$parsedResult[] = $artistmodel->toArray();
 			}
 		}

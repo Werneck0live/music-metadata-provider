@@ -55,8 +55,9 @@ class Albummodel {
 		return $albumdal->search($value);
 	}
 
-	public function searchTopAlbuns($value) {
+	public function searchTopAlbuns($value='') {
 		$albumdal = new Albumdal();
+		
 		return $albumdal->searchTopAlbuns($value);
 	}
 }

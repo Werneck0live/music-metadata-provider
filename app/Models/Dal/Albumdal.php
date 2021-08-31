@@ -52,7 +52,6 @@ class Albumdal {
 
 	public function searchTopAlbuns($value) {
 		$lastfm = new Lastfm();
-
 		/*
 			TODO: WERNECK - Questão 5
 			Foi criada uma nova função para listagem de top Albuns.
@@ -60,10 +59,14 @@ class Albumdal {
 			ou um no .env para receber o número correto para o limit
 			de registros a serem listados
 		*/
-		$albumsReturned = $lastfm->getTopAlbuns($value, '10');
 
+		$limit = ($value=='') ? '5' : '10';
+		
+
+		$albumsReturned = $lastfm->getTopAlbuns($value, $limit);
+		
 		foreach($albumsReturned as $album) {
-
+			
 			unset($albummodel);
 			
 			$albummodel = new Albummodel();
@@ -72,10 +75,10 @@ class Albumdal {
 			$albummodel->setArtist($album->artist->name);
 			$albummodel->setPlaycount($album->playcount);
 			$albummodel->setImage($this->returnImageSite($album->image));
-
+			
 			$albumsParsed[] = $albummodel;
 		}
-
+		
 		return $albumsParsed;
 		
 	}

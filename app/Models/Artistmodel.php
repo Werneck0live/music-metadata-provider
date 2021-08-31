@@ -10,7 +10,7 @@ class Artistmodel {
 	private $url;
 	private $image;
 	private $tags;
-	public $top_albuns;
+	private $top_albuns;
 
 	
 	public function setName($name) {
@@ -27,6 +27,9 @@ class Artistmodel {
 	public function setTags($tags) {
 		$this->tags = $tags;
 	}
+	public function setTopAlbuns($top_albuns) {
+		$this->top_albuns = $top_albuns;
+	}
 	
 	public function toArray() {
 		return [
@@ -38,9 +41,13 @@ class Artistmodel {
 		];
 	}
 
-	public function search($value) {
-		
+	public function search($value) {		
 		$artistdal = new Artistdal();
 		return $artistdal->search($value);
+	}
+	
+	public function topArtists() {
+		$artistdal = new Artistdal();
+		return $artistdal->listTopArtists();	
 	}
 }
