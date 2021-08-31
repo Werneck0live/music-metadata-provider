@@ -12,8 +12,16 @@ class Album extends BaseController
 	*/
 	public function search($value)
 	{
+		/*
+			TODO: WERNECK - Questão 7
+			Poderia realizar o tratamento dos espaços, utilizando
+			preg_replace e expressão regular com regex. Como foi testado
+			que a função "rawurlencode" trata este tipo de situação, foi inserido na
+			Librery Lastfm.php, onde pude realizra os testes normalmente
+		*/ 
+		
 		/* 
-			TODO: Werneck
+			TODO: WERNECK - Questão 3
 			O ideial fosse tratar o input com uma ferramento do framework
 			como middleware e entre outros. Devida a tempo a falta de tempo hábil
 			para desenvolver todas a funcionalidades, foi feita uma forma mais procedural
@@ -21,7 +29,7 @@ class Album extends BaseController
 		*/
 		if((!isset($value) || trim($value)=='""' || trim($value)=='\'\'')){			
 			/*
-				O desejável fosse isoltar o este response em uma função separada,
+				O desejável seria isolar o este response em uma função separada,
 				E somente enviar os parâmetros(constantes) desejáveis, devido à
 				boas práticas de programação, repetir trecho de código.
 			*/ 

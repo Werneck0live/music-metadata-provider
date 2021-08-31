@@ -8,7 +8,7 @@ class Lastfm
 	// private $apiKey = '0592ad31249201dd89c250fa7062af4a';
 
 	/*
-		TODO: WERNECK
+		TODO: WERNECK - Questão 1
 		Substituicao da ApiKey para api do candidato Werneck Oliveira
 	*/ 
 	private $apiKey = '21fbf6b46882e68e78ad6857b4092898';
@@ -31,7 +31,11 @@ class Lastfm
 			padrão ou algo semelhante a regra de negócio do projeto.
 		*/
 		// $url = $this->getBaseUrl() . "method=album.search&album=$value&limit=1";
-		$url = $this->getBaseUrl() . "method=album.search&album=$value";
+		$url = $this->getBaseUrl() . "method=album.search&album=".rawurlencode($value);
+		/*
+			TODO: WERNECK - Questão 7
+			Comentário descrito no Controller Album.php
+		*/
 
 		$client = \Config\Services::curlrequest();
 

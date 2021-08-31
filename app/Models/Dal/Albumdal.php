@@ -9,6 +9,14 @@ class Albumdal {
 	
 	public function search($value) {
 
+		/*
+			TODO: WERNECK - Questão 7
+			Poderia realizar o tratamento dos espaços, utilizando
+			preg_replace e expressão regular com regex. Como foi testado
+			que a função "rawurlencode" trata este tipo de situação, foi inserido na
+			Librery Lastfm.php, onde pude realizra os testes normalmente
+		*/ 
+
 		$lastfm = new Lastfm();
 		$albumsReturned = $lastfm->searchAlbum($value);
 
