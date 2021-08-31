@@ -50,6 +50,12 @@ Seguem alguns links que ajudarão o candidato na execução do teste:
 * https://www.last.fm/api
 
 
+## ALTERAÇÕES - WERNECK
+Url's utilizadas no projeto
+
+* artist/details/red (ARTISTA)
+* album/search/red (ALBUM)
+* chart/top (CHART)
 
 
 

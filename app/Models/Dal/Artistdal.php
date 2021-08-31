@@ -17,6 +17,10 @@ class Artistdal {
 
 		if (!$artistsReturned)
 			return $artistsParsed;
+
+		// foreach ($artistsReturned as $key => $value) {
+		// 	echo '<pre>';var_dump($value);die();
+		// }
 		
 		unset($artistmodel);
 
@@ -31,7 +35,12 @@ class Artistdal {
 		
 		return $artistsParsed;
 	}
-
+	
+	/*
+		TODO: WERNECK
+		Comentário sobre essa função "returnImageSite", já inserido
+		no arquivo Albumdal.php.
+	*/ 
 	public function returnImageSite(array $arrayImage, $size = 'small'){
 		foreach ($arrayImage as $value) {
 			if($value->size==$size){
@@ -58,13 +67,21 @@ class Artistdal {
 			$artistmodal->setName($artist->name);
 			$artistmodal->setUrl($artist->url);
 			$artistmodal->setImage($this->returnImageSite($artist->image));
-			$artistmodal->setTopAlbuns($lastfm->getTopAlbuns($artist->name, '5'));
-			
+			/*
+				TODO: WERNECK - Questão 6
+				Recebento o álbum mais popular e fazendo o tratamento da imagem,
+				utilizando como padrão small, que é o valor default da função
+			*/ 
+			$allAlbuns = $lastfm->getTopAlbuns($artist->name, '1');
+			$albuns = [];
+			foreach ( $allAlbuns as $value) {
+				$value->image = $this->returnImageSite($value->image);
+				$albuns = $value;
+			}
+			$artistmodal->setTopAlbuns($albuns);
 			
 			$artistsParsed[] = $artistmodal;
 		}
-		
-		// echo '<pre>';var_dump($artistsParsed);die();
 		
 		return $artistsParsed;
 	}

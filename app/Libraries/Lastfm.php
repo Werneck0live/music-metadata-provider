@@ -32,6 +32,7 @@ class Lastfm
 		*/
 		// $url = $this->getBaseUrl() . "method=album.search&album=$value&limit=1";
 		$url = $this->getBaseUrl() . "method=album.search&album=".rawurlencode($value);
+		
 		/*
 			TODO: WERNECK - Questão 7
 			Comentário descrito no Controller Album.php
@@ -73,9 +74,13 @@ class Lastfm
 	}
 	
 	public function getTopAlbuns($value, $limit='') {
-		
+		/*
+			A variável $limit está com o valor default '', com o intuito
+			de, caso ser utilizada furamente e NÃO utilizar limit.
+		*/ 
 		$limit = ($limit!='') ? 'limit='.$limit : '';
-		$url = $this->getBaseUrl() . "method=artist.gettopalbums&artist=".urlencode($value)."&$limit";
+		
+		$url = $this->getBaseUrl() . "method=artist.gettopalbums&artist=".rawurlencode($value)."&$limit";
 		$client = \Config\Services::curlrequest();
 		
 		$response = $client->request('GET', $url);
@@ -86,13 +91,17 @@ class Lastfm
 			!$responseArray->topalbums ||
 			!$responseArray->topalbums->album )
 			return $responseParsed;
-
+			
 		$responseParsed = $responseArray->topalbums->album;
 
 		return $responseParsed;
 	}
 
 	public function getTopArtists($limit=''){
+		/*
+			A variável $limit está com o valor default '', com o intuito
+			de, caso ser utilizada furamente e NÃO utilizar limit.
+		*/ 
 		$limit = ($limit!='') ? 'limit='.$limit : '';
 		$url = $this->getBaseUrl() . "method=chart.gettopartists&$limit";
 		

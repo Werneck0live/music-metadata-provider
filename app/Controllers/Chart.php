@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Artistmodel;
-use App\Models\Albummodel;
 
 class Chart extends BaseController
 {
@@ -16,8 +15,6 @@ class Chart extends BaseController
 		$result = $artists->topArtists();
 
 		$parsedResult = [];
-		
-		$albummodel = new Albummodel();
 		
 		if ($result && count($result) > 0) {			
 			foreach ($result as $artistmodel) {

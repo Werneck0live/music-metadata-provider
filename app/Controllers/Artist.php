@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Artistmodel;
-use App\Models\Albummodel;
 
 class Artist extends BaseController
 {
@@ -17,7 +16,7 @@ class Artist extends BaseController
 		
 		$parsedResult = [];
 		
-		if ($result && count($result) > 0) {			
+		if ($result && count($result) > 0) {	
 			foreach ($result as $artistmodel) {;
 				$parsedResult[] = $artistmodel->toArray();
 			}

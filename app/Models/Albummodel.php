@@ -6,12 +6,12 @@ use App\Models\Dal\Albumdal;
 
 class Albummodel {
 	
-	public $name;
-	public $artist;
-	public $url;
-	public $cover;
-	public $playcount;
-	public $image;
+	private $name;
+	private $artist;
+	private $url;
+	private $cover;
+	private $playcount;
+	private $image;
 
 	public function setName($name) {
 		$this->name = $name;

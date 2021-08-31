@@ -15,7 +15,7 @@ class Albumdal {
 			preg_replace e expressão regular com regex. Como foi testado
 			que a função "rawurlencode" trata este tipo de situação, foi inserido na
 			Librery Lastfm.php, onde pude realizra os testes normalmente
-		*/ 
+		*/
 
 		$lastfm = new Lastfm();
 		$albumsReturned = $lastfm->searchAlbum($value);
@@ -33,12 +33,18 @@ class Albumdal {
 			$albummodel->setName($album->name);
 			$albummodel->setArtist($album->artist);
 			$albummodel->setUrl($album->url);
+			
 			/*
-				TODO: WERNECK - Questão 5
+				TODO: WERNECK - Questão 4
 			   Foi criada a função returnImageSite para tratar o tamanho padrão 
 			   para o retorno da imagem. Por default, a função utiliza o valor "small".
+
 			   O intuito, é quando a função for chamada, basta informar o tamanho desejado
 			   como segundo parâmetro, para utilizar este tamanho desejado.
+
+			   A função também é chamada em Artstdal.php, por isso, o ideal seria colocar
+			   essa função em um util.php para ambos ou mais (futuros), chamassem de um
+			   único local e com a governança correta.
 			*/
 			$albummodel->setCover($this->returnImageSite($album->image));
 
@@ -64,14 +70,11 @@ class Albumdal {
 			TODO: WERNECK - Questão 5
 			Foi criada uma nova função para listagem de top Albuns.
 			Desejável que fosse criado um crud de configuração 
-			ou um no .env para receber o número correto para o limit
-			de registros a serem listados
+			ou uma configuração no .env para receber o número correto 
+			para o limit de registros a serem listados
 		*/
 
-		$limit = ($value=='') ? '5' : '10';
-		
-
-		$albumsReturned = $lastfm->getTopAlbuns($value, $limit);
+		$albumsReturned = $lastfm->getTopAlbuns($value);
 		
 		foreach($albumsReturned as $album) {
 			
@@ -90,6 +93,7 @@ class Albumdal {
 		return $albumsParsed;
 		
 	}
+	
 	public function returnImageSite(array $arrayImage, $size = 'small'){
 		foreach ($arrayImage as $value) {
 			if($value->size==$size){
